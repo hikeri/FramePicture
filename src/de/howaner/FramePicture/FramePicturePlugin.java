@@ -43,14 +43,6 @@ public class FramePicturePlugin extends JavaPlugin {
 		if (log == null) log = this.getLogger();
 		if (instance == null) instance = this;
 		
-		//Check Bukkit Version
-		if (this.invalidBukkit) {
-			log.severe("You use a not-supported bukkit version!");
-			log.severe("This FramePicture version is for Spigot 1.8!");
-			Bukkit.getPluginManager().disablePlugin(this);
-			return;
-		}
-		
 		if (manager == null) manager = new FrameManager(this);
 		this.setupEconomy();
 		manager.onEnable();
