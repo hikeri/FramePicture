@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+group = 'de.howaner.FramePicture'
+version = '1.8.7'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT' // Replace with your target Minecraft version
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src'] // Point to the Java source directory
+        }
+        resources {
+            srcDirs = ['.'] // Include `plugin.yml` and `lang/`
+        }
+    }
+}
+
+jar {
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    manifest {
+        attributes(
+            'Main-Class': 'de.howaner.FramePicture.FramePicturePlugin' // Matches your plugin.yml main class
+        )
+    }
+    // Include plugin.yml and lang/ directory in the final JAR
+    from('.') {
+        include 'plugin.yml'
+        include 'lang/**'
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+sourceCompatibility = '1.8' // Adjust to match your Java version
+targetCompatibility = '1.8'
